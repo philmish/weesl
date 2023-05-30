@@ -27,7 +27,6 @@ class Module(modules.WeeslModule):
         return {
             "exec": self._exec,
             "env_set": self._env_set,
-            "rsync_local": self._rsync_local,
             "rsync": self._rsync
         }
 
@@ -48,22 +47,6 @@ class Module(modules.WeeslModule):
 
     def _env_set(self, key: str, val: str):
         os.environ[key] = val
-
-    def _rsync_local(
-            self, 
-            dir: str, 
-            target: str, 
-            exclude: Optional[List[str]] = None, 
-            verbose: bool = True
-            ) -> CommandOutputContainer:
-        cmd = "rsync -a"
-        if verbose: cmd += "v"
-        if exclude is not None:
-            for ex in exclude:
-                cmd += f" --exclude={ex}"
-        cmd = f"{cmd} {dir} {target}"
-        print(cmd)
-        return self._exec(cmd)
 
     def _rsync(
             self, 
