@@ -28,7 +28,7 @@ class Weesl:
     def builtins(self) -> Dict[str, Callable]:
         return {
             "set": self._set,
-            "print": lambda s: print(f"{s}")
+            "print": lambda s: print(f"{s}"),
         }
 
     def _set(self, k: str ,v: Any):
