@@ -21,7 +21,7 @@ class Task:
 
     @classmethod
     def setup(cls, name: str, vars: Dict[str, Any],  calls: List[str]):
-        return cls(name, vars, [Call.from_shaper(i) for i in calls])
+        return cls(name, vars, [Call.from_weesl(i) for i in calls])
 
 """
 Iterator implementation for a list of Tasks.

@@ -24,7 +24,7 @@ class Call:
         self.kwargs = {k: interpolate_env(v) for k, v in self.kwargs.items()}
 
     @classmethod
-    def from_shaper(cls, call: str):
+    def from_weesl(cls, call: str):
         parts = call.split("|")
         funcparts = parts[0].split("::")
         mod, fn = funcparts[0], funcparts[1]
