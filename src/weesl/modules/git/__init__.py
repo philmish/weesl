@@ -12,7 +12,8 @@ class Module(WeeslModule):
     @property
     def calls(self) -> Dict[str, Callable]:
         return {
-                "status": self._status
+                "status": self._status,
+                "init": self._init,
         }
 
     def _status(

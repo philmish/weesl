@@ -8,13 +8,13 @@ class StatusCommand:
     show_stash: bool
 
     def __str__(self) -> str:
-        cmd = "git status "
+        cmd = "git status"
         if self.short:
-            cmd += "--short "
+            cmd += " --short"
         if self.branch:
-            cmd += "--branch "
+            cmd += " --branch"
         if self.show_stash:
-            cmd += "--show-stash "
+            cmd += " --show-stash"
         return cmd
 
 @dataclass
@@ -28,12 +28,12 @@ class InitCommand:
         return "master"
 
     def __str__(self) -> str:
-        cmd = "git init "
+        cmd = "git init"
         if self.bare:
-            cmd += "--bare "
+            cmd += " --bare "
         if self.quite:
-            cmd += "--quite "
+            cmd += " --quite "
         if self.branch != InitCommand.default_branch:
-            cmd += f"--initial-branch={self.branch} "
+            cmd += f" --initial-branch={self.branch} "
         return cmd
 

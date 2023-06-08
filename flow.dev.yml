@@ -7,15 +7,16 @@ data:
   global:
       env: "ENV:FLOW_ENV:debug"
       home: "ENV:HOME"
-mods: ["git"]
+mods: ["git", "fs"]
 tasks:
   - git:
       vars:
-        src: "fs_test/src"
-        dst: "fs_test/dst/"
+        src: "testing/"
         short: true
         result: ""
       calls: [
-        "git::status|short=.$short|.$result",
+        "fs::join_path|$home,.$src|.$src",
+        "fs::cd|.$src|",
+        "git::init||.$result",
         ".::print|.$result|"
       ]
