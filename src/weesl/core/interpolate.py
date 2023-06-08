@@ -3,6 +3,8 @@ from typing import Any, Dict
 
 
 def interpolate_placeholder_str(target: str, prefix: str, kv: Dict[str, Any]) -> Any:
+    if not isinstance(target, str):
+        return target
     for k, v in kv.items():
         var = f"{prefix}{k}"
         if target == var:

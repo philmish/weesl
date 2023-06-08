@@ -13,8 +13,9 @@ tasks:
       vars:
         src: "fs_test/src"
         dst: "fs_test/dst/"
+        short: true
         result: ""
       calls: [
-        "git::status||.$result",
+        "git::status|short=.$short|.$result",
         ".::print|.$result|"
       ]
