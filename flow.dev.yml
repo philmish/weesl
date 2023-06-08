@@ -7,16 +7,14 @@ data:
   global:
       env: "ENV:FLOW_ENV:debug"
       home: "ENV:HOME"
-mods: ["sys", "fs"]
+mods: ["git"]
 tasks:
-  - rsync:
+  - git:
       vars:
         src: "fs_test/src"
         dst: "fs_test/dst/"
         result: ""
       calls: [
-        "fs::join_path|$home,.$src|.$src",
-        "fs::join_path|$home,.$dst|.$dst",
-        "sys::rsync|local=.$src,target=.$dst|.$result",
-        ".::print|.$result"
+        "git::status||.$result",
+        ".::print|.$result|"
       ]

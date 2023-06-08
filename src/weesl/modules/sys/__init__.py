@@ -1,24 +1,8 @@
 import os
-import subprocess
-from typing import Callable, Dict, Optional, List
-from dataclasses import dataclass
-from weesl.lib import modules, data_container
+from weesl.lib import modules
 from weesl.modules.sys import rsync
-
-@dataclass
-class CommandOutputContainer(data_container.WeeslDataContainer):
-    status: int
-    err: Optional[str]
-    out: str
-
-    @property
-    def has_err(self) -> bool:
-        return self.status != 0
-
-    def get_value(self):
-        if self.has_err and self.err is not None:
-            return self.out
-        return f"Status: {self.status}\n{self.out}\nerr: {self.err}"
+from typing import Callable, Dict, Optional, List
+from weesl.lib.processes import CommandOutputContainer, run_process
 
 class Module(modules.WeeslModule):
 
@@ -31,19 +15,7 @@ class Module(modules.WeeslModule):
         }
 
     def _exec(self, cmd: str) -> CommandOutputContainer:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-        (out, err) = p.communicate()
-        p_status = p.wait()
-        if err is not None:
-            err = err.decode()
-        out = out.decode()
-        res = CommandOutputContainer(
-                raw_value=p_status, 
-                status=p_status, 
-                err=err, 
-                out=out
-        )
-        return res
+        return run_process(cmd)
 
     def _env_set(self, key: str, val: str):
         os.environ[key] = val
