@@ -16,11 +16,10 @@ class RsyncCommandBuilder:
     from_remote: bool = False
 
     @property
-    def is_remote(self) -> bool:
+    def authenticatable(self) -> bool:
         return self.user is not None and self.host is not None
 
-    @property
-    def build(self) -> str:
+    def __str__(self) -> str:
         cmd = "rsync"
         if self.delete: cmd += " --delete"
         flags = "a"
@@ -31,10 +30,10 @@ class RsyncCommandBuilder:
         if self.key is not None: 
             flags += "e"
             shell += f"'ssh -i {self.key}' "
-        if self.is_remote and not self.from_remote: 
+        if self.authenticatable and not self.from_remote: 
             target += f"{self.user}@{self.host}:{self.target}"
             src += self.dir
-        elif self.is_remote and self.from_remote:
+        elif self.authenticatable and self.from_remote:
             target += self.target
             src += f"{self.user}@{self.host}:{self.dir}"
         else:
@@ -45,4 +44,3 @@ class RsyncCommandBuilder:
             target += f" --backup-dir={self.backup}"
         cmd = f"{cmd} -{flags} {shell}{src} {target}"
         return cmd
-

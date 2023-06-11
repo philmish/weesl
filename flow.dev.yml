@@ -5,18 +5,16 @@ settings:
   log: "default"
 data:
   global:
-      env: "ENV:FLOW_ENV:debug"
-      home: "ENV:HOME"
-mods: ["git", "fs"]
+    env: "ENV:FLOW_ENV;debug:"
+    home: "ENV:HOME:"
+mods: ["rsync"]
 tasks:
-  - git:
+  - rsync:
       vars:
-        src: "testing/"
+        src: "$home/fs_test/src/"
+        dst: "$home/fs_test/dst/"
         short: true
         result: ""
       calls: [
-        "fs::join_path|$home,.$src|.$src",
-        "fs::cd|.$src|",
-        "git::init||.$result",
-        ".::print|.$result|"
+        "rsync::local|dir=.$src,target=.$dst|.$result",
       ]
