@@ -36,7 +36,7 @@ def get_from_env(var: str, default: str = "") -> str:
 
 def interpolate_env(var: Any) -> Any:
     if isinstance(var, str):
-        pattern = re.compile(r"(ENV:[a-zA-Z]+(;[ -~]+)?:)")
+        pattern = re.compile(r"(ENV:[^;]+(;[^:]+:|:))")
         matches = re.findall(pattern, var)
         for match in matches:
             placeholder = match[0]

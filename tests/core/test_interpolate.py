@@ -6,6 +6,7 @@ from weesl.core.interpolate import interpolate_env
 @pytest.mark.parametrize("setup,target,expected", [
     ({"HOMEDIR": "/home/user"}, "ENV:HOMEDIR;/not/home:/testing", "/home/user/testing"),
     ({}, "ENV:HOMEDIR;/not/home:/testing", "/not/home/testing"),
+    ({"HOMEDIR": "/home/user", "TESTDIR": "/testing"}, "ENV:HOMEDIR;/not/home:ENV:TESTDIR;/testing:", "/home/user/testing"),
     ])
 def test_interpolate_env(setup: Dict[str, str], target: str, expected: str):
     for k, v in setup.items():

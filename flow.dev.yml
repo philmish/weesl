@@ -13,7 +13,6 @@ tasks:
       vars:
         src: "$home/fs_test/src/"
         dst: "$home/fs_test/dst/"
-        short: true
         result: ""
       calls: [
         "rsync::local|dir=.$src,target=.$dst|.$result",
