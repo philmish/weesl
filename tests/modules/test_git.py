@@ -26,6 +26,7 @@ class InitArgs(TypedDict, total=False):
 
 @pytest.mark.parametrize("args,expected", [
     ({"bare": False, "quite": False}, "git init"),
+    ({"bare": True, "quite": False}, "git init --bare")
     ])
 def test_git_init_command_builder(args: InitArgs, expected: str):
     cmd = InitCommand(**args)

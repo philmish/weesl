@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, TypedDict
 from weesl.core.call import Call
 
 
@@ -22,6 +22,11 @@ class Task:
     @classmethod
     def setup(cls, name: str, vars: Dict[str, Any],  calls: List[str]):
         return cls(name, vars, [Call.from_weesl(i) for i in calls])
+
+class TaskDict(TypedDict):
+    name: str
+    vars: Dict[str, Any]
+    calls: List[str]
 
 """
 Iterator implementation for a list of Tasks.

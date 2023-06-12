@@ -1,7 +1,6 @@
 import os
 from weesl.lib import modules
-from weesl.modules.sys import rsync
-from typing import Callable, Dict, Optional, List
+from typing import Callable, Dict
 from weesl.lib.processes import CommandOutputContainer, run_process
 
 class Module(modules.WeeslModule):

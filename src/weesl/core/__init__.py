@@ -4,12 +4,8 @@ from typing import Callable, List, Dict, Any
 from weesl.lib.data_container import WeeslDataContainer
 from weesl.lib.modules import WeeslModule
 from weesl.core.call import Call
-from weesl.core.task import Task, TaskList
-
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+from weesl.core.task import Task, TaskDict, TaskList
+from yaml import Loader
 
 
 class Weesl:
@@ -65,7 +61,7 @@ class Weesl:
         parsed: List[Task] = list()
         for task in tasks:
             for k, v in task.items():
-                data = {"name": k, **v}
+                data: TaskDict = {"name": k, "vars": v["vars"], "calls": v["calls"]}
                 parsed.append(Task.setup(**data))
         return TaskList(parsed)
 

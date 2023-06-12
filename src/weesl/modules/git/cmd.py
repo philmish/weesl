@@ -30,9 +30,9 @@ class InitCommand:
     def __str__(self) -> str:
         cmd = "git init"
         if self.bare:
-            cmd += " --bare "
+            cmd += " --bare"
         if self.quite:
-            cmd += " --quite "
+            cmd += " --quite"
         if self.branch != InitCommand.default_branch():
             cmd += f" --initial-branch={self.branch} "
         return cmd
