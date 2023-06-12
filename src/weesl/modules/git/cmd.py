@@ -21,7 +21,7 @@ class StatusCommand:
 class InitCommand:
     bare: bool
     quite: bool
-    branch: str
+    branch: str = "master"
 
     @staticmethod
     def default_branch() -> str:
@@ -33,7 +33,7 @@ class InitCommand:
             cmd += " --bare "
         if self.quite:
             cmd += " --quite "
-        if self.branch != InitCommand.default_branch:
+        if self.branch != InitCommand.default_branch():
             cmd += f" --initial-branch={self.branch} "
         return cmd
 
