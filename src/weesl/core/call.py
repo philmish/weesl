@@ -7,7 +7,7 @@ from weesl.core.interpolate import interpolate_env, interpolate_placeholder_str
 class Call:
     mod: str
     fn: str
-    args: Tuple[str]
+    args: Tuple[Any, ...]
     kwargs: Dict[str, str]
     receiver: Optional[str] = None
 
@@ -28,7 +28,7 @@ class Call:
         parts = call.split("|")
         funcparts = parts[0].split("::")
         mod, fn = funcparts[0], funcparts[1]
-        args: Tuple[str] = tuple()
+        args: Tuple[Any, ...] = tuple()
         kwargs: Dict[str, str] = dict()
         recv = None
         for arg in parts[1].split(","):

@@ -22,13 +22,10 @@ def run_process(cmd: str) -> CommandOutputContainer:
     p = Popen(cmd, stdout=PIPE, shell=True)
     (out, err) = p.communicate()
     p_status = p.wait()
-    if err is not None:
-        err = err.decode()
-    out = out.decode()
     res = CommandOutputContainer(
             raw_value=p_status, 
             status=p_status, 
-            err=err, 
-            out=out
+            err=err.decode(), 
+            out=out.decode()
     )
     return res
