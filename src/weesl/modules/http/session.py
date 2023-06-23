@@ -33,5 +33,4 @@ class SessionHandler:
 
     def run_request(self, request: Request):
         preped = self.session.prepare_request(request)
-        result = self.session.send(preped)
-        print(result.status_code)
+        return self.session.send(preped)
